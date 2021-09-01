@@ -1,7 +1,7 @@
 'use strict';
 
-const input = document.querySelector('input');
-const p = document.querySelector('p');
+const input = document.querySelector('#Debounce_Throttle input');
+const p = document.querySelector('#Debounce_Throttle p');
 
 //Debounce
 // time 250 - 300
@@ -10,7 +10,7 @@ const debounce = (fn, time) => {
     return function(...arg) {
         const fnCall = () => fn.apply(this, arg);
         clearTimeout(flagTimeout);
-        flagTimeout = setTimeout(fnCall, time, arg);
+        flagTimeout = setTimeout(fnCall, time);
     };
 };
 
