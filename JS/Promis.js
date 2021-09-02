@@ -5,7 +5,6 @@ const postData = (url, data) => new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
     request.addEventListener('readystatechange', () => {
         if (request.readyState === 4) {
-            console.log(request.status);
             if (request.status === 200) {
                 resolve();
             } else {
