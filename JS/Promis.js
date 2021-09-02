@@ -5,6 +5,7 @@ const postData = (url, data) => new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
     request.addEventListener('readystatechange', () => {
         if (request.readyState === 4) {
+            console.log(request.status);
             if (request.status === 200) {
                 resolve();
             } else {
@@ -16,12 +17,11 @@ const postData = (url, data) => new Promise((resolve, reject) => {
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(JSON.stringify(data));
 });
-
-postData()
+const url = 'https://jsonplaceholder.typicode.com/photos';
+const data = [1, 2, 3, 4, 5];
+postData(url, data)
     .then(() => console.log('Всё гуд'))
     .catch(error => console.log(error));
-
-
 
 
 const getData = url => new Promise((resolve, reject) => {
