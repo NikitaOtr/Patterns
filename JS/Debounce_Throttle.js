@@ -4,7 +4,6 @@ const input = document.querySelector('#Debounce_Throttle input');
 const p = document.querySelector('#Debounce_Throttle p');
 
 //Debounce
-// time 250 - 300
 const debounce = (fn, time) => {
     let flagTimeout;
     return function(...arg) {
