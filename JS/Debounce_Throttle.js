@@ -6,19 +6,20 @@ const p = document.querySelector('#Debounce_Throttle p');
 //Debounce
 const debounce = (fn, time) => {
     let flagTimeout;
-    return function(...arg) {
-        const fnCall = () => fn.apply(this, arg);
+    return function(...args) {
+        const fnCall = () => fn.call(this, ...args);
         clearTimeout(flagTimeout);
         flagTimeout = setTimeout(fnCall, time);
     };
 };
 
-const print = function(event) {
-    const target = event.target;
-    p.textContent = target.value;
-};
+const print = text => p.textContent = text;
+
 const printDebounce = debounce(print, 300);
-input.addEventListener('input', printDebounce);
+
+input.addEventListener('input', event => {
+    printDebounce(event.target.value);
+});
 
 
 // Throttle
@@ -26,28 +27,28 @@ const throttle = (fn, time) => {
     let isThrottled = false;
     let saveThis;
     let saveArgs;
-    return function wrapper(...arg) {
+    return function wrapper(...args) {
         if (isThrottled) {
             saveThis = this;
-            saveArgs = arg;
+            saveArgs = args;
             return;
         }
-        fn.apply(this, arg);
+        fn.call(this, ...args);
         isThrottled = true;
         setTimeout(() => {
             isThrottled = false;
             if (saveArgs) {
-                wrapper.apply(saveThis, saveArgs);
+                wrapper.call(saveThis, ...saveArgs);
                 saveArgs = saveThis = null;
             }
         }, time);
     };
 };
 
-const consoleCoorrinate = function(event) {
-    p.textContent = event.clientX + ' ' + event.clientY;
-};
-const consoleCoorrinateThrottle = throttle(consoleCoorrinate, 1000);
-document.addEventListener('mousemove', consoleCoorrinateThrottle);
+const printCoordinates = (x, y) => p.textContent = `X:${x}  Y:${y}`;
 
+const printCoordinatesThrottle = throttle(printCoordinates, 1000);
 
+document.addEventListener('mousemove', event => {
+    printCoordinatesThrottle(event.clientX, event.clientY);
+});

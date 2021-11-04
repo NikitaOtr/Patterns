@@ -1,8 +1,8 @@
 'use strict';
 //Loger
-const loger = callback => (...arg) => {
-    const res = callback(...arg);
-    console.log('Вызов функции: ' + callback.name);
+const loger = fn => function(...args) {
+    const res = fn.call(this, ...args);
+    console.log('Вызов функции: ' + fn.name);
     console.log('Результаты: ' + res);
     return res;
 };
@@ -10,18 +10,19 @@ const loger = callback => (...arg) => {
 const sum = (a, b, c) => a + b + c;
 
 const sumLog = loger(sum);
-sumLog(4, 50, 600);
+sumLog(4, 50, 640);
+
 
 //Eacher
-const eacher = (data, callback) => {
+function eacher(fn, data) {
     let count = 0;
     const interval = setInterval(() => {
-        callback(data[count++]);
+        fn.call(this, data[count++]);
         if (count === data.length) { clearInterval(interval); }
     }, 0);
-};
+}
 
 const arr = ['Рома', 'Илья', 'Алина', 'Ната'];
 const printName = name => console.log('Имя: ' + name);
 
-eacher(arr, printName);
+eacher(printName, arr);
