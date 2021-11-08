@@ -26,13 +26,13 @@ const Memoization = (fn, length) => {
     };
 };
 
-const pow = (number, degree) => {
+const sum = (number, count) => {
     let res = 0;
-    for (let i = 0; i < degree; i++) { res += number; }
+    for (let i = 1; i <= count; i++) { res += number; }
     return res;
 };
 
-const memoizPow = Memoization(pow, 2);
+const memoizPow = Memoization(sum, 2);
 
 console.log(memoizPow(1, 1e1));
 console.log(memoizPow(2, 1e2));
