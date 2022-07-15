@@ -1,0 +1,6 @@
+.containerWrap {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(auto-fill, minmax(max(300px, 30%), 1fr));
+    gap: 10px 20px;
+}
